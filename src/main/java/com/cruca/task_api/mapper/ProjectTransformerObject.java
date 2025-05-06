@@ -4,12 +4,20 @@ import com.cruca.task_api.dto.ProjectDtoRequest;
 import com.cruca.task_api.dto.ProjectDtoResponse;
 import com.cruca.task_api.enums.Status;
 import com.cruca.task_api.model.Project;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+@Component
 public class ProjectTransformerObject {
 
+    @Autowired
     private ProjectMemberTransformerObject projectMemberTransformerObject;
+
+    @Autowired
     private UserTransformerObject userTransformerObject;
 
     public Project dtoToEntity(ProjectDtoRequest projectDtoRequest) {
@@ -21,8 +29,6 @@ public class ProjectTransformerObject {
     }
 
     public ProjectDtoResponse entityToDto(Project project) {
-        userTransformerObject = new UserTransformerObject();
-        projectMemberTransformerObject = new ProjectMemberTransformerObject();
 
         ProjectDtoResponse projectDtoResponse = new ProjectDtoResponse();
         projectDtoResponse.setProjectId(project.getProjectId());
@@ -34,8 +40,8 @@ public class ProjectTransformerObject {
     }
 
     public List<ProjectDtoResponse> listEntityToListDto(List<Project> projects) {
-        if (projects.isEmpty()) {
-            return null;
+        if (projects == null || projects.isEmpty()) {
+            return Collections.emptyList();
         }
 
         List<ProjectDtoResponse> response = new ArrayList<>();
