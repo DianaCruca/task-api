@@ -54,6 +54,15 @@ public class User implements UserDetails {
     @Column(name = "update_at", nullable = true, insertable = false)
     private Date updatedAt;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "createdBy", orphanRemoval = true)
+    private List<Project> createdProjects;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    private List<ProjectMember> projectsMember;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    private List<TaskMember> tasksAssigned;
+
     /// UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

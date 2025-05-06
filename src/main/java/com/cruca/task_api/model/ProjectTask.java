@@ -7,6 +7,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -48,6 +49,6 @@ public class ProjectTask {
     private Project project;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projectTask", orphanRemoval = true)
-    private Set<TaskMember> taskMember;
+    private List<TaskMember> taskMember;
 
 }

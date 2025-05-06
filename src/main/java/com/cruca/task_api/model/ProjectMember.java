@@ -28,7 +28,7 @@ public class ProjectMember {
     @Column(name = "joined_at")
     private Date joinedAt;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "member_user_id", nullable = false)
     private User user;
 

@@ -22,7 +22,7 @@ public class TaskMember {
     @JoinColumn(name = "task_id")
     private ProjectTask projectTask;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "assigned_to")
     private User user;
 
