@@ -2,7 +2,6 @@ package com.cruca.task_api.service;
 
 import com.cruca.task_api.dto.ProjectDtoRequest;
 import com.cruca.task_api.dto.ProjectDtoResponse;
-import com.cruca.task_api.enums.InvitationStatus;
 import com.cruca.task_api.enums.ProjectRole;
 import com.cruca.task_api.enums.Status;
 import com.cruca.task_api.exception.AccessDeniedException;
@@ -45,7 +44,8 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectMemberTransformerObject projectMemberTransformerObject;
 
     @Override
-    public ProjectDtoResponse createProject(ProjectDtoRequest projectDtoRequest) {;
+    public ProjectDtoResponse createProject(ProjectDtoRequest projectDtoRequest) {
+        ;
         /// Identify the user's email that logged in
         String email = authorizationService.getEmail();
         /// Identify the authenticated user
@@ -62,7 +62,6 @@ public class ProjectServiceImpl implements ProjectService {
         /// Assign like member to creator user
         Set<ProjectMember> projectMembers = new HashSet<>();
         ProjectMember projectMember = new ProjectMember();
-        projectMember.setInvitationStatus(InvitationStatus.ACEPTADA);
         projectMember.setProjectRole(ProjectRole.ADMINISTRATOR);
         projectMember.setJoinedAt(new Date());
         projectMember.setUser(user);
@@ -74,7 +73,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDtoResponse readProject(Long projectId){
+    public ProjectDtoResponse readProject(Long projectId) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new ResourceNotFoundException("Proyecto no encontrado, con id: " + projectId));
 
@@ -82,7 +81,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDtoResponse> readProjectByIdUser(Long idUser){
+    public List<ProjectDtoResponse> readProjectByIdUser(Long idUser) {
         String email = authorizationService.getEmail();
 
         User user = userRepository.findById(idUser)
@@ -102,18 +101,18 @@ public class ProjectServiceImpl implements ProjectService {
             throw new AccessDeniedException("Acceso Demegado, no tienes permisos");
         }
 
-       return projectTransformerObject.listEntityToListDto(projectRepository.findByStatusAndProjectMemberUser(Status.A, user));
+        return projectTransformerObject.listEntityToListDto(projectRepository.findByStatusAndProjectMemberUser(Status.A, user));
     }
 
     @Override
-    public List<ProjectDtoResponse> readProjectByStatus(Status status){
+    public List<ProjectDtoResponse> readProjectByStatus(Status status) {
         return projectTransformerObject.listEntityToListDto(projectRepository.findByStatus(status));
     }
 
     /// Private functionality
     /// Role:
     @Override
-    public ProjectDtoResponse updateProject(ProjectDtoRequest projectDtoRequest){
+    public ProjectDtoResponse updateProject(ProjectDtoRequest projectDtoRequest) {
         Project project = projectRepository.findById(projectDtoRequest.getProjectId())
                 .orElseThrow(() -> new ResourceNotFoundException("Proyecto no encontrado, con id: " + projectDtoRequest.getProjectId()));
 
@@ -123,17 +122,17 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDtoResponse updateStatus(Long projectId){
+    public ProjectDtoResponse updateStatus(Long projectId) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new ResourceNotFoundException("Proyecto no encontrado, con id: " + projectId));
 
         Status newStatus = null;
 
-        if(project.getStatus().equals(Status.A)){
+        if (project.getStatus().equals(Status.A)) {
             newStatus = Status.I;
         }
 
-        if(project.getStatus().equals(Status.I)){
+        if (project.getStatus().equals(Status.I)) {
             newStatus = Status.A;
         }
 

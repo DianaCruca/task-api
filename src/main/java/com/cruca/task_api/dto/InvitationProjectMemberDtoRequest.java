@@ -5,7 +5,7 @@ import com.cruca.task_api.enums.ProjectRole;
 import lombok.Data;
 
 @Data
-public class ProjectMemberDtoRequest {
+public class InvitationProjectMemberDtoRequest {
 
     private Long projectId;
     private Long projectMemberId;
