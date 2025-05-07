@@ -1,5 +1,6 @@
 package com.cruca.task_api.model;
 
+import com.cruca.task_api.enums.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,5 +26,9 @@ public class TaskMember {
     @ManyToOne
     @JoinColumn(name = "assigned_to")
     private User user;
+
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 }
