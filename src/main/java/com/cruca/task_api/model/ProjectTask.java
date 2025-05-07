@@ -1,5 +1,6 @@
 package com.cruca.task_api.model;
 
+import com.cruca.task_api.enums.Status;
 import com.cruca.task_api.enums.TaskPriority;
 import com.cruca.task_api.enums.TaskStatus;
 import jakarta.persistence.*;
@@ -8,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "t_project_task")
@@ -26,21 +26,18 @@ public class ProjectTask {
     @Column(name = "description", columnDefinition = "text")
     private String description;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", updatable = false)
-    private Date createdAt;
-
-    @Column(name = "due_date", updatable = false)
+    @Column(name = "due_date")
     private Date dueDate;
 
     @Column(name = "task_priority")
+    @Enumerated(EnumType.STRING)
     private TaskPriority taskPriority;
 
     @Column(name = "task_status")
+    @Enumerated(EnumType.STRING)
     private TaskStatus taskStatus;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "created_by")
     private User createdBy;
 
@@ -50,5 +47,14 @@ public class ProjectTask {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projectTask", orphanRemoval = true)
     private List<TaskMember> taskMember;
+
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", updatable = false)
+    private Date createdAt;
 
 }
