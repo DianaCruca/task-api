@@ -24,17 +24,14 @@ public class ProjectTransformerObject {
         Project project = new Project();
         project.setName(projectDtoRequest.getName());
         project.setStatus(Status.A);
-
         return project;
     }
 
     public ProjectDtoResponse entityToDto(Project project) {
-
         ProjectDtoResponse projectDtoResponse = new ProjectDtoResponse();
         projectDtoResponse.setProjectId(project.getProjectId());
         projectDtoResponse.setName(project.getName());
         projectDtoResponse.setStatus(project.getStatus());
-        projectDtoResponse.setProjectMembers(projectMemberTransformerObject.listDtoToListEntity(project.getProjectMember()));
         projectDtoResponse.setCreatedBy(userTransformerObject.entityToContactDto(project.getCreatedBy()));
         return projectDtoResponse;
     }
