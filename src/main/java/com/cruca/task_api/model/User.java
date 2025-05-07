@@ -57,6 +57,9 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "createdBy", orphanRemoval = true)
     private List<Project> createdProjects;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "createdBy", orphanRemoval = true)
+    private List<ProjectTask> createdProjectTasks;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<ProjectMember> projectsMember;
 
