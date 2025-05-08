@@ -11,7 +11,7 @@ import com.cruca.task_api.mapper.ProjectTransformerObject;
 import com.cruca.task_api.model.Project;
 import com.cruca.task_api.model.ProjectMember;
 import com.cruca.task_api.model.User;
-import com.cruca.task_api.repository.ProjectMemberReository;
+import com.cruca.task_api.repository.ProjectMemberRepository;
 import com.cruca.task_api.repository.ProjectRepository;
 import com.cruca.task_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectRepository projectRepository;
 
     @Autowired
-    private ProjectMemberReository projectMemberReository;
+    private ProjectMemberRepository projectMemberRepository;
 
     @Autowired
     private AuthorizationService authorizationService;
@@ -67,7 +67,7 @@ public class ProjectServiceImpl implements ProjectService {
         projectMember.setUser(user);
         projectMember.setProject(projectSave);
         projectMembers.add(projectMember);
-        ProjectMember projectMemberSave = projectMemberReository.save(projectMember);
+        ProjectMember projectMemberSave = projectMemberRepository.save(projectMember);
 
         return projectTransformerObject.entityToDto(projectMemberSave.getProject());
     }

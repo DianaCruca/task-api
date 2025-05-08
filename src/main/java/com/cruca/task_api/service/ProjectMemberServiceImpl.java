@@ -6,7 +6,7 @@ import com.cruca.task_api.exception.ResourceNotFoundException;
 import com.cruca.task_api.mapper.ProjectMemberTransformerObject;
 import com.cruca.task_api.model.InvitationProjectMember;
 import com.cruca.task_api.model.ProjectMember;
-import com.cruca.task_api.repository.ProjectMemberReository;
+import com.cruca.task_api.repository.ProjectMemberRepository;
 import com.cruca.task_api.repository.ProjectRepository;
 import com.cruca.task_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.Date;
 public class ProjectMemberServiceImpl implements ProjectMemberService {
 
     @Autowired
-    private ProjectMemberReository projectMemberReository;
+    private ProjectMemberRepository projectMemberRepository;
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -38,12 +38,12 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
         projectMember.setProject(invitationProjectMember.getProject());
         projectMember.setStatus(Status.A);
 
-        return projectMemberTransformerObject.entityToDto(projectMemberReository.save(projectMember));
+        return projectMemberTransformerObject.entityToDto(projectMemberRepository.save(projectMember));
     }
 
     @Override
     public ProjectMemberDtoResponse updateStatus(Long projectMemberId) {
-        ProjectMember projectMember = projectMemberReository.findById(projectMemberId)
+        ProjectMember projectMember = projectMemberRepository.findById(projectMemberId)
                 .orElseThrow(() -> new ResourceNotFoundException("Invitación no encontrada, con id: " + projectMemberId));
 
         Status status = null;
@@ -57,7 +57,7 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
 
         projectMember.setStatus(status);
 
-        return projectMemberTransformerObject.entityToDto(projectMemberReository.save(projectMember));
+        return projectMemberTransformerObject.entityToDto(projectMemberRepository.save(projectMember));
     }
 
 }
