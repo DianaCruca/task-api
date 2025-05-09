@@ -4,12 +4,8 @@ import com.cruca.task_api.enums.Role;
 import com.cruca.task_api.enums.Status;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
-@Getter
-@Setter
 public class UserDtoRequest {
 
     private Long id;

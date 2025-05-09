@@ -1,11 +1,9 @@
 package com.cruca.task_api.payload;
 
 import lombok.Builder;
-import lombok.Data;
 
 import java.util.Date;
 
-@Data
 @Builder
 public class CorrectRequest {
 

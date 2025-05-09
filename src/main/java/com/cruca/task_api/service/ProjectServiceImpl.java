@@ -45,7 +45,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectDtoResponse createProject(ProjectDtoRequest projectDtoRequest) {
-        ;
         /// Identify the user's email that logged in
         String email = authorizationService.getEmail();
         /// Identify the authenticated user

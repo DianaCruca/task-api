@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
+
 @Tag(
         name = "Auth Controller",
         description = "This controller provides functionalities to create users and log-in"
