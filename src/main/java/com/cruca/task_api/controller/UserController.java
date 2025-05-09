@@ -6,6 +6,11 @@ import com.cruca.task_api.enums.Status;
 import com.cruca.task_api.exception.BadRequestException;
 import com.cruca.task_api.payload.CorrectRequest;
 import com.cruca.task_api.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -18,6 +23,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
+@Tag(
+        name = "User Controller",
+        description = "This controller provides functionalities to create, update user data and read by ID and status"
+)
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -25,6 +34,29 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Operation(
+            summary = "User register from internal users with privileges",
+            description = "Register a new user by an admin, with the ability to assign privileges | Authentication: Required - Role: Admin",
+            tags = { "Controller" },
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Register user with name, lastname, email, password and role",
+                    required = true,
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = UserDtoRequest.class)
+                    )
+            ),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Usuario creado correctamente",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = UserDtoResponse.class)
+                            )
+                    )
+            }
+    )
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createUserPrivate(@Valid @RequestBody UserDtoRequest userDtoRequest) {
@@ -43,6 +75,21 @@ public class UserController {
         }
     }
 
+    @Operation(
+            summary = "Get user by ID",
+            description = "Get user by ID | Authentication: Required - Role: Any",
+            tags = { "Controller" },
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Usuario listado correctamente",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = UserDtoResponse.class)
+                            )
+                    )
+            }
+    )
     @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/read-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> readUsersById(@PathVariable Long id) {
@@ -61,6 +108,21 @@ public class UserController {
         }
     }
 
+    @Operation(
+            summary = "Get user by Status",
+            description = "Get user by Status | Authentication: Required - Role: Admin",
+            tags = { "Controller" },
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Usuario listado correctamente",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = UserDtoResponse.class)
+                            )
+                    )
+            }
+    )
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping(value = "/read-status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> readUsersByStatus(@PathVariable Status status) {
@@ -89,6 +151,32 @@ public class UserController {
         }
     }
 
+    @Operation(
+            summary = "Update user data",
+            description = "Update user data | Authentication: Required - Role: any",
+            tags = { "Controller" },
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    required = true,
+                    description = """
+                    key: role - this field can only be updated by an admin <br>
+                    key: status - this field can only be updated by an admin <br>
+                    """,
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = UserDtoRequest.class)
+                    )
+            ),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Usuario actualizado correctamente",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = UserDtoResponse.class)
+                            )
+                    )
+            }
+    )
     @PreAuthorize("isAuthenticated()")
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateUser(@RequestBody UserDtoRequest userDtoRequest) {

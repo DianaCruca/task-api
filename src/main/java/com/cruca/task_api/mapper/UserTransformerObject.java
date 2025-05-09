@@ -1,5 +1,6 @@
 package com.cruca.task_api.mapper;
 
+import com.cruca.task_api.dto.UserContactDtoResponse;
 import com.cruca.task_api.dto.UserDtoRequest;
 import com.cruca.task_api.dto.UserDtoResponse;
 import com.cruca.task_api.enums.Status;
@@ -39,6 +40,22 @@ public class UserTransformerObject {
             userDtoResponseList.add(entityToDto(user));
         }
         return userDtoResponseList;
+    }
+
+    public UserContactDtoResponse entityToContactDto(User user){
+        UserContactDtoResponse response = new UserContactDtoResponse();
+        response.setIdUser(user.getId());
+        response.setNameUser(user.getName());
+        response.setLastnameUser(user.getLastname());
+        return response;
+    }
+
+    public List<UserContactDtoResponse> entityListToContactDtoList(List<User> users){
+        List<UserContactDtoResponse> response = new ArrayList<>();
+        for(User user : users){
+            response.add(entityToContactDto(user));
+        }
+        return response;
     }
 
 }

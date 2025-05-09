@@ -17,4 +17,10 @@ public class AuthorizationServiceImpl implements AuthorizationService {
                 .anyMatch(authority -> authorizedRoles.contains(authority.getAuthority()));
     }
 
+    @Override
+    public String getEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
+
 }

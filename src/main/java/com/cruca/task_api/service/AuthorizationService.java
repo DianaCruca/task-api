@@ -6,4 +6,6 @@ public interface AuthorizationService {
 
     boolean identifyIsAuthorized(List<String> authorizedRoles);
 
+    String getEmail();
+
 }
