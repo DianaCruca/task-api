@@ -1,0 +1,772 @@
+{
+	"info": {
+		"_postman_id": "19ec1b42-bfe7-43d9-a481-fcf385658780",
+		"name": "TASKS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31967367"
+	},
+	"item": [
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "PUBLIC",
+					"item": [
+						{
+							"name": "PUBLIC REGISTER",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"\",\r\n    \"lastname\": \"\",\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/public/user/register",
+								"description": "Token: No necesario\n\nDescripción: Registra usuarios con el rol \"USER\", es decir, sin privilegios. Aunque hay una excepción, si el sistema detecta que no hay usuarios existentes en la base datos, se generara con rol \"ADMIN\"."
+							},
+							"response": []
+						},
+						{
+							"name": "LOGIN",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"diana@example.com\",\r\n    \"password\":\"#d13o33*8u\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/public/user/login"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PRIVATE",
+					"item": [
+						{
+							"name": "PRIVATE REGISTER",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Diana\",\r\n    \"lastname\": \"Cruz\",\r\n    \"email\": \"54@example.com\",\r\n    \"password\": \"123\",\r\n    \"role\": \"ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/user/register"
+							},
+							"response": []
+						},
+						{
+							"name": "PRIVATE READ BY ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": "http://localhost:8080/api/user/read-id/6"
+							},
+							"response": []
+						},
+						{
+							"name": "PRIVATE READ BY ESTATUS",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/user/read-status/A"
+							},
+							"response": []
+						},
+						{
+							"name": "PRIVATE UPDATE",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"8\",\r\n    //Parameters authorized for any role authenticated\"\r\n    \"name\": \"Dian\",\r\n    \"lastname\": \"Cruca\",\r\n    //Parameters authorized only for administrators\r\n    \"role\": \"ADMIN\",\r\n    \"status\": \"I\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/user/update"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "PROJECT",
+			"item": [
+				{
+					"name": "REGISTER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Proyecto Tareas v5\",\r\n    \"createdBy\":7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/project/register"
+					},
+					"response": []
+				},
+				{
+					"name": "READ BY ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/project/read-id/12"
+					},
+					"response": []
+				},
+				{
+					"name": "READ BY STATUS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/project/read-status/A"
+					},
+					"response": []
+				},
+				{
+					"name": "READ BY USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/project/read-user/7"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"projectId\":12,\r\n    \"name\":\"task v12.2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/project/update"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE STATUS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8080/api/project/update-status/12"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROJECT - INVITATION",
+			"item": [
+				{
+					"name": "CREATE INVITATION",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"projectRole\":\"ADMINISTRATOR\",\r\n    \"projectId\":12,\r\n    \"emailUser\":\"dpd@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/project/member-invitation/register"
+					},
+					"response": []
+				},
+				{
+					"name": "READ BY USER AND STATUS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/project/member-invitation/read-user?userId=9&status=A",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"project",
+								"member-invitation",
+								"read-user"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "9"
+								},
+								{
+									"key": "status",
+									"value": "A"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ BY PROJECT AND STATUS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/project/member-invitation/read-project?projectId=12&status=A",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"project",
+								"member-invitation",
+								"read-project"
+							],
+							"query": [
+								{
+									"key": "projectId",
+									"value": "12"
+								},
+								{
+									"key": "status",
+									"value": "A"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE STATUS INVITATION",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "projectMemberId",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "invitationStatus",
+									"value": "ACEPTADA",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/project/member-invitation/update-status-invitation?projectMemberId=2&invitationStatus=ACEPTADA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"project",
+								"member-invitation",
+								"update-status-invitation"
+							],
+							"query": [
+								{
+									"key": "projectMemberId",
+									"value": "2"
+								},
+								{
+									"key": "invitationStatus",
+									"value": "ACEPTADA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE STATUS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "http://localhost:8080/api/project/member-invitation/update-status/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROJECT - MEMBER",
+			"item": [
+				{
+					"name": "UPDATE STATUS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8080/api/project/member/update-status/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROJECT - TASK",
+			"item": [
+				{
+					"name": "REGISTER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"projectId\":12,\r\n    \"title\":\"Add new enpoints to manage members activities\",\r\n    \"description\":\"Create, Update, Delete\",\r\n    \"dueDate\":\"2025-05-06\",\r\n    \"taskPriority\":\"BAJA\",\r\n    \"taskStatus\":\"PENDIENTE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/project/task/register"
+					},
+					"response": []
+				},
+				{
+					"name": "READ BY ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "http://localhost:8080/api/project/task/read-id/1"
+					},
+					"response": []
+				},
+				{
+					"name": "READ BY PROJECT AND STATUS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/project/task/read-project-status/?projectId=12&status=A",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"project",
+								"task",
+								"read-project-status",
+								""
+							],
+							"query": [
+								{
+									"key": "projectId",
+									"value": "12"
+								},
+								{
+									"key": "status",
+									"value": "A"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ BY USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/project/task/read-user/1"
+					},
+					"response": []
+				},
+				{
+					"name": "READ BY PROJECT AND PRIORITY",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/project/task/read-project-priority/?projectId=12&taskPriority=BAJA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"project",
+								"task",
+								"read-project-priority",
+								""
+							],
+							"query": [
+								{
+									"key": "projectId",
+									"value": "12"
+								},
+								{
+									"key": "taskPriority",
+									"value": "BAJA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"taskId\":1,\r\n    \"taskStatus\":\"EN_PROGRESO\",\r\n    \"title\":\"Create various endpoints\",\r\n    \"description\":\"A large description\",\r\n    \"dueDate\":\"2025-05-06\",\r\n    \"taskPriority\":\"ALTA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/project/task/update"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE STATUS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8080/api/project/task/update-status/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROJECT - TASK - MEMBER",
+			"item": [
+				{
+					"name": "REGISTER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userAssignedId\": 8,\r\n    \"projectTaskId\": 1,\r\n    \"dateAssigned\": \"2025-05-07\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/task/member/register"
+					},
+					"response": []
+				},
+				{
+					"name": "READ  BY ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userAssignedId\": 8,\r\n    \"projectTaskId\": 1,\r\n    \"dateAssigned\": \"2025-05-07\"\r\n}"
+						},
+						"url": "http://localhost:8080/api/task/member/read-id/1"
+					},
+					"response": []
+				},
+				{
+					"name": "READ BY TASK AND STATUS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/task/member/read-task-status/?taskMemberId=1&status=A",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"task",
+								"member",
+								"read-task-status",
+								""
+							],
+							"query": [
+								{
+									"key": "taskMemberId",
+									"value": "1"
+								},
+								{
+									"key": "status",
+									"value": "A"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE BY STATUS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8080/api/task/member/update-status/1"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
