@@ -9,10 +9,14 @@ Make sure you have the following installed:
 
 ## Configuration
 - Set the database credentials in the application.properties file, located at:
+  
   src/main/resources/application.properties
 - Modify the following lines with your local configuration:
+  
   spring.datasource.url=jdbc:mysql://localhost:3306/your_database_name
+  
   spring.datasource.username=your_username
+  
   spring.datasource.password=your_password
   
 ## Running
@@ -23,16 +27,21 @@ Make sure you have the following installed:
 
 ## Test the API with Postman
 - You can test the API endpoints using the Postman collection located at:
+  
   postman/TASKS.postman_collection.json
+  
   ![image](https://github.com/user-attachments/assets/3d914354-f26e-42b7-8af2-f18d1818eef5)
 
 **CONSIDERATIONS**:
   - After exporting the collection, you must take into account that it is necessary to create a user. To do this, send a request to the public user creation endpoint:
+
+     The endpoint /api/public/user/register creates users without needing to be authenticated. However, if there is already at least one user in the database, then all users created through this endpoint will automatically be assigned the "USER" role.
+If there are no users in the database, the first user created will be assigned the "ADMIN" role. After the first user is created, all subsequent users will be assigned the "USER" role.
+
   ![image](https://github.com/user-attachments/assets/5549ec8e-dd17-42dc-89f4-ba791d67ed42)
   
- The endpoint /api/public/user/register creates users without needing to be authenticated. However, if there is already at least one user in the database, then all users created through this endpoint will automatically be assigned the "USER" role.
-If there are no users in the database, the first user created will be assigned the "ADMIN" role. After the first user is created, all subsequent users will be assigned the "USER" role.
-  - Once the first user is created, it is necessary to log in. To do this, send a request to the endpoint:
+ - Once the first user is created, it is necessary to log in. To do this, send a request to the endpoint:
+   
   ![image](https://github.com/user-attachments/assets/cbe1eebf-bccb-4d7d-83b3-7e88691687f3)
 
 **NOTE**:
@@ -58,10 +67,15 @@ Asegúrate de tener instalado lo siguiente:
 
 ## Configuración
 - Configura las credenciales de la base de datos en el archivo application.properties, ubicado en:
+
   src/main/resources/application.properties
+  
 - Modifica las siguientes líneas con tu configuración local:
+  
   spring.datasource.url=jdbc:mysql://localhost:3306/nombre_de_tu_bd
+  
   spring.datasource.username=tu_usuario
+  
   spring.datasource.password=tu_contraseña
   
 ## Ejecución
@@ -72,14 +86,16 @@ Asegúrate de tener instalado lo siguiente:
 
 ## Probar la API con Postman
 - Puedes probar los endpoints del API, usando la colección de postman que se encuentra en:
-  ![image](https://github.com/user-attachments/assets/90353a5e-3ec4-4a15-8774-fc5a62488874)
   postman/TASKS.postman_collection.json
+    ![image](https://github.com/user-attachments/assets/90353a5e-3ec4-4a15-8774-fc5a62488874)
 
 **CONSIDERACIONES**:
   - Luego de exportar la colección, debes tomar en cuenta que es necesario crear un usuario, para esto debes enviar una petición al endpoint de crear usuario de manera publica:
+
+      El endpoint de "/api/public/user/register", crea a usuarios sin necesidad de estar autenticado, pero con la condición de, SI EXISTE UN USUARIO EN LA BASE DE DATOS, automaticamente todos los usuarios que sean creados por este endpoint, seran asignados con un rol de "USER", en caso de que la existencia de usuarios en la base de datos sea nula, el usuario que se crearía sería "ADMIN", luego de la creación del primer usuario, todos los demás usuarios se les asignara el rol "USER"
+    
   ![image](https://github.com/user-attachments/assets/5549ec8e-dd17-42dc-89f4-ba791d67ed42)
   
-  El endpoint de "/api/public/user/register", crea a usuarios sin necesidad de estar autenticado, pero con la condición de, SI EXISTE UN USUARIO EN LA BASE DE DATOS, automaticamente todos los usuarios que sean creados por este endpoint, seran asignados con un rol de "USER", en caso de que la existencia de usuarios en la base de datos sea nula, el usuario que se crearía sería "ADMIN", luego de la creación del primer usuario, todos los demás usuarios se les asignara el rol "USER"
 - Una vez creado el primer usuario es necesario iniciar sesión, para esto debes enviar una petición al endpoint:
   ![image](https://github.com/user-attachments/assets/cbe1eebf-bccb-4d7d-83b3-7e88691687f3)
 
